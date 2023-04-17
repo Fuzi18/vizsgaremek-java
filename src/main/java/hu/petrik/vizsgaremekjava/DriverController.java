@@ -3,7 +3,7 @@ package hu.petrik.vizsgaremekjava;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class DriverController {
     @FXML
     private Label welcomeText;
 
