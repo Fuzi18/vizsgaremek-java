@@ -30,4 +30,82 @@ public class Driver {
         this.kategoria = kategoria;
         this.helyezes = helyezes;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNev() {
+        return nev;
+    }
+
+    public void setNev(String nev) {
+        this.nev = nev;
+    }
+
+    public int getKor() {
+        return kor;
+    }
+
+    public void setKor(int kor) {
+        this.kor = kor;
+    }
+
+    public String getNemzetiseg() {
+        return nemzetiseg;
+    }
+
+    public void setNemzetiseg(String nemzetiseg) {
+        this.nemzetiseg = nemzetiseg;
+    }
+
+    public String getCsapat() {
+        return csapat;
+    }
+
+    public void setCsapat(String csapat) {
+        this.csapat = csapat;
+    }
+
+    public int getSzerzettpontok() {
+        return szerzettpontok;
+    }
+
+    public void setSzerzettpontok(int szerzettpontok) {
+        this.szerzettpontok = szerzettpontok;
+    }
+
+    public String getKategoria() {
+        return kategoria;
+    }
+
+    public void setKategoria(String kategoria) {
+        this.kategoria = kategoria;
+    }
+
+    public int getHelyezes() {
+        return helyezes;
+    }
+
+    public void setHelyezes(int helyezes) {
+        this.helyezes = helyezes;
+    }
+
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "id=" + id +
+                ", nev='" + nev + '\'' +
+                ", kor=" + kor +
+                ", nemzetiseg='" + nemzetiseg + '\'' +
+                ", csapat='" + csapat + '\'' +
+                ", szerzettpontok=" + szerzettpontok +
+                ", kategoria='" + kategoria + '\'' +
+                ", helyezes=" + helyezes +
+                '}';
+    }
 }
