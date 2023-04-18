@@ -18,21 +18,21 @@ public class DriverDB {
         String url = String.format("jdbc:%s://%s:%s/%s", DB_DRIVER, DB_HOST, DB_PORT, DB_DBNAME);
         conn = DriverManager.getConnection(url, DB_USER, DB_PASS);
     }
-    public boolean createDriver(Driver driver) throws SQLException {
+    public boolean createDriver(Driver f1) throws SQLException {
         String sql = "INSERT INTO f1(nev, kor, nemzetiseg, csapat, szrzettpontok, kategoria, helyezes) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, driver.getNev());
-        stmt.setInt(2, driver.getKor());
-        stmt.setString(3, driver.getNemzetiseg());
-        stmt.setString(4, driver.getCsapat());
-        stmt.setInt(5, driver.getSzerzettpontok());
-        stmt.setString(6, driver.getKategoria());
-        stmt.setInt(7, driver.getHelyezes());
+        stmt.setString(1, f1.getNev());
+        stmt.setInt(2, f1.getKor());
+        stmt.setString(3, f1.getNemzetiseg());
+        stmt.setString(4, f1.getCsapat());
+        stmt.setInt(5, f1.getSzerzettpontok());
+        stmt.setString(6, f1.getKategoria());
+        stmt.setInt(7, f1.getHelyezes());
         return stmt.executeUpdate() > 0;
     }
 
     public List<Driver> readDriver() throws SQLException {
-        List<Driver> drivers = new ArrayList<>();
+        List<Driver> pilotak = new ArrayList<>();
         String sql = "SELECT * FROM f1";
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery(sql);
@@ -46,15 +46,15 @@ public class DriverDB {
             String kategoria = result.getString("kategoria");
             int helyezes = result.getInt("helyezes");
 
-            Driver driver = new Driver(id, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
-            drivers.add(driver);
+            Driver f1 = new Driver(id, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+            pilotak.add(f1);
         }
-        return drivers;
+        return pilotak;
     }
 
-    public boolean updateDriver(Driver driver) throws SQLException {
-        String sql = "UPDATE drivers " +
-                "SET pilota = ?, " +
+    public boolean updateDriver(Driver f1) throws SQLException {
+        String sql = "UPDATE pilotak " +
+                "SET nev = ?, " +
                 "kor = ?, " +
                 "nemzetiseg = ?" +
                 "csapat = ?" +
@@ -63,14 +63,14 @@ public class DriverDB {
                 "helyezes = ?" +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, driver.getNev());
-        stmt.setInt(2, driver.getKor());
-        stmt.setString(3, driver.getNemzetiseg());
-        stmt.setString(4, driver.getCsapat());
-        stmt.setInt(5, driver.getSzerzettpontok());
-        stmt.setString(6, driver.getKategoria());
-        stmt.setInt(7, driver.getHelyezes());
-        stmt.setInt(8, driver.getId());
+        stmt.setString(1, f1.getNev());
+        stmt.setInt(2, f1.getKor());
+        stmt.setString(3, f1.getNemzetiseg());
+        stmt.setString(4, f1.getCsapat());
+        stmt.setInt(5, f1.getSzerzettpontok());
+        stmt.setString(6, f1.getKategoria());
+        stmt.setInt(7, f1.getHelyezes());
+        stmt.setInt(8, f1.getId());
         return stmt.executeUpdate() > 0;
     }
     public boolean deleteDriver(int id) throws SQLException {

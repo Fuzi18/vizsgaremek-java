@@ -82,11 +82,6 @@ public class DriverController {
 
     }
 
-    private void readDrivers() throws SQLException{
-        List<Driver> drivers = db.readDriver();
-        driverTable.getItems().clear();
-        driverTable.getItems().addAll(drivers);
-    }
 
     private void sqlAlert(SQLException e) {
         alert(Alert.AlertType.ERROR,
@@ -153,9 +148,9 @@ public class DriverController {
     }
 
     private void readDrivers() throws SQLException {
-        List<Driver> drivers = db.readDriver();
+        List<Driver> pilotak = db.readDriver();
         driverTable.getItems().clear();
-        driverTable.getItems().addAll(drivers);
+        driverTable.getItems().addAll(pilotak);
     }
 
     private Driver getSelectedDriverNullMatter() {
@@ -210,9 +205,9 @@ public class DriverController {
     }
 
     private void updateDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
-        Driver driver = new Driver(updateId, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        Driver f1 = new Driver(updateId, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         try {
-            if (db.updateDriver(driver)) {
+            if (db.updateDriver(f1)) {
                 alert(Alert.AlertType.WARNING, "Sikeres módosítás", "");
             } else {
                 alert(Alert.AlertType.WARNING, "Sikertelen módosítás", "");
@@ -224,9 +219,9 @@ public class DriverController {
         }
     }
     private void createDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
-        Driver driver = new Driver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        Driver f1 = new Driver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         try {
-            if (db.createDriver(driver)) {
+            if (db.createDriver(f1)) {
                 alert(Alert.AlertType.WARNING, "Sikeres felvétel", "");
                 resetForm();
             } else {
