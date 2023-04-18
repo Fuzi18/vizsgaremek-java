@@ -88,6 +88,11 @@ public class DriverController {
                 "Hiba történt az adatbázis kapcsolat kialakításakor",
                 e.getMessage());
     }
+    private void readDrivers() throws SQLException {
+        List<Driver> f1 = db.readDriver();
+        driverTable.getItems().clear();
+        driverTable.getItems().addAll(f1);
+    }
 
     private Optional<ButtonType> alert(Alert.AlertType alertType, String headerText, String contentText) {
         Alert alert = new Alert(alertType);
@@ -147,21 +152,14 @@ public class DriverController {
         setStateToSubmit();
     }
 
-    private void readDrivers() throws SQLException {
-        List<Driver> pilotak = db.readDriver();
-        driverTable.getItems().clear();
-        driverTable.getItems().addAll(pilotak);
-    }
 
-    private Driver getSelectedDriverNullMatter() {
-        int selectedIndex = driverTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex == -1) {
-            return null;
+    private Driver getSelectedDriverNullMsg(String msg) {
+        Driver selected = driverTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            alert(Alert.AlertType.WARNING, "Nincs kijelölt elem", msg);
         }
-        return driverTable.getSelectionModel().getSelectedItem();
-
+        return selected;
     }
-
 
     private Driver getSelectedDriver() {
         int selectedIndex = driverTable.getSelectionModel().getSelectedIndex();
