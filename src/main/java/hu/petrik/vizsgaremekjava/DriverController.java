@@ -93,4 +93,168 @@ public class DriverController {
                 "Hiba történt az adatbázis kapcsolat kialakításakor",
                 e.getMessage());
     }
+
+    private Optional<ButtonType> alert(Alert.AlertType alertType, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        return alert.showAndWait();
+    }
+    @FXML
+    public void updateClick(ActionEvent event) {
+        Driver selected = driverTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            setStateToUpdate();
+            nevInput.setText(selected.getNev());
+            korInput.getValueFactory().setValue(selected.getKor());
+            nemzetisegInput.setText(selected.getNemzetiseg());
+            csapatInput.setText(selected.getCsapat());
+            szerzettpontokInput.getValueFactory().setValue(selected.getSzerzettpontok());
+            kategoriaInput.setText(selected.getKategoria());
+            helyezesInput.getValueFactory().setValue(selected.getHelyezes());
+            updateId = selected.getId();
+        }
+    }
+
+    private void setStateToUpdate() {
+        submitButton.setText("Update");
+        driverTable.setDisable(true);
+        updateButton.setDisable(true);
+        deleteButton.setDisable(true);
+    }
+    private void setStateToSubmit() {
+        submitButton.setText("Submit");
+        driverTable.setDisable(false);
+        updateButton.setDisable(false);
+        deleteButton.setDisable(false);
+    }
+    @FXML
+    public void deleteClick(ActionEvent actionEvent) {
+        Driver selected = getSelectedDriver();
+        if (selected == null) return;
+
+        Optional<ButtonType> optionalButtonType = alert(Alert.AlertType.CONFIRMATION,
+                "Biztos, hogy törölni szeretné a viláasztott pilotat?", "");
+        if (optionalButtonType.isEmpty() || !(optionalButtonType.get().equals(ButtonType.OK)) && !(optionalButtonType.get().equals(ButtonType.YES)))  {
+            return;
+        }
+
+        try {
+            if (db.deleteDriver(selected.getId())) {
+                alert(Alert.AlertType.WARNING, "Sikeres törlés", "");
+            } else {
+                alert(Alert.AlertType.WARNING, "Sikertelen törlés", "");
+            }
+            readDrivers();
+        } catch (SQLException e) {
+            sqlAlert(e);
+        }
+        setStateToSubmit();
+    }
+
+    private void readDrivers() throws SQLException {
+        List<Driver> drivers = db.readDriver();
+        driverTable.getItems().clear();
+        driverTable.getItems().addAll(drivers);
+    }
+
+    private Driver getSelectedDriverNullMatter() {
+        int selectedIndex = driverTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            return null;
+        }
+        return driverTable.getSelectionModel().getSelectedItem();
+
+    }
+
+
+    private Driver getSelectedDriver() {
+        int selectedIndex = driverTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            alert(Alert.AlertType.WARNING,
+                    "Előbb válasszon ki pilotat a táblázatból", "");
+            return null;
+        }
+        return driverTable.getSelectionModel().getSelectedItem();
+    }
+    @FXML
+    public void submitClick(ActionEvent actionEvent) {
+        String nev = nevInput.getText().trim();
+        int kor = korInput.getValue();
+        String nemzetiseg = nemzetisegInput.getText().trim();
+        String csapat = csapatInput.getText().trim();
+        int szerzettpontok = szerzettpontokInput.getValue();
+        String kategoria = kategoriaInput.getText().trim();
+        int helyezes = helyezesInput.getValue();
+        if (nev.isEmpty()) {
+            alert(Alert.AlertType.WARNING, "Név megadása kötelező", "");
+            return;
+        }
+        if (nemzetiseg.isEmpty()) {
+            alert(Alert.AlertType.WARNING, "Nemzetiség megadása kötelező", "");
+            return;
+        }
+        if (csapat.isEmpty()) {
+            alert(Alert.AlertType.WARNING, "Csapat megadása kötelező", "");
+            return;
+        }
+        if (kategoria.isEmpty()) {
+            alert(Alert.AlertType.WARNING, "Kategória megadása kötelező", "");
+            return;
+        }
+        if (submitButton.getText().equals("Update")) {
+            updateDriver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        } else {
+            createDriver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        }
+    }
+
+    private void updateDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
+        Driver driver = new Driver(updateId, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        try {
+            if (db.updateDriver(driver)) {
+                alert(Alert.AlertType.WARNING, "Sikeres módosítás", "");
+            } else {
+                alert(Alert.AlertType.WARNING, "Sikertelen módosítás", "");
+            }
+            readDrivers();
+            setStateToSubmit();
+        } catch (SQLException e) {
+            sqlAlert(e);
+        }
+    }
+    private void createDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
+        Driver driver = new Driver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        try {
+            if (db.createDriver(driver)) {
+                alert(Alert.AlertType.WARNING, "Sikeres felvétel", "");
+                resetForm();
+            } else {
+                alert(Alert.AlertType.WARNING, "Sikertelen felvétel", "");
+            }
+            readDrivers();
+        } catch (SQLException e) {
+            sqlAlert(e);
+        }
+    }
+
+    private void resetForm() {
+        nevInput.setText("");
+        korInput.getValueFactory().setValue(0);
+        nemzetisegInput.setText("");
+        csapatInput.setText("");
+        szerzettpontokInput.getValueFactory().setValue(0);
+        kategoriaInput.setText("");
+        helyezesInput.getValueFactory().setValue(0);
+
+        submitButton.setText("Submit");
+        driverTable.setDisable(false);
+        updateButton.setDisable(false);
+        deleteButton.setDisable(false);
+    }
+    @FXML
+    public void cancelClick(ActionEvent actionEvent) {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
 }
