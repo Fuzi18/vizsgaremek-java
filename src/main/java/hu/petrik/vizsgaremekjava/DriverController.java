@@ -104,6 +104,8 @@ public class DriverController {
     public void updateClick(ActionEvent event) {
         Driver selected = driverTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
+            Optional<ButtonType> optionalButtonType = alert(Alert.AlertType.CONFIRMATION,
+                    "Biztos, hogy módosítani szeretné a választott pilotat?", "");
             setStateToUpdate();
             nevInput.setText(selected.getNev());
             korInput.getValueFactory().setValue(selected.getKor());
@@ -134,7 +136,7 @@ public class DriverController {
         if (selected == null) return;
 
         Optional<ButtonType> optionalButtonType = alert(Alert.AlertType.CONFIRMATION,
-                "Biztos, hogy törölni szeretné a viláasztott pilotat?", "");
+                "Biztos, hogy törölni szeretné a választott pilotat?", "");
         if (optionalButtonType.isEmpty() || !(optionalButtonType.get().equals(ButtonType.OK)) && !(optionalButtonType.get().equals(ButtonType.YES)))  {
             return;
         }
