@@ -62,7 +62,7 @@ public class ShopController {
         colorCol.setCellValueFactory(new PropertyValueFactory<>("color"));
         priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        priceInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 150000000));
+        priceInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 15000));
         quantityInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400));
         try {
             db = new ShopDB();
