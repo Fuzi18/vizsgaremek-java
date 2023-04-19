@@ -46,6 +46,18 @@
                         <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
                      </children>
                   </HBox>
+                  <TextField fx:id="typeInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="teamInput" layoutX="10.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="sizeInput" layoutX="10.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="colorInput" layoutX="10.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Spinner fx:id="priceInput" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Spinner fx:id="quantityInput" layoutX="10.0" layoutY="18.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Type:" GridPane.rowIndex="1" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Team:" GridPane.rowIndex="2" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Size:" GridPane.rowIndex="3" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Color:" GridPane.rowIndex="4" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Price:" GridPane.rowIndex="5" />
+                  <Label layoutX="10.0" layoutY="22.0" text="Quantity:" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children></HBox>
