@@ -19,7 +19,7 @@ public class DriverDB {
         conn = DriverManager.getConnection(url, DB_USER, DB_PASS);
     }
     public boolean createDriver(Driver f1) throws SQLException {
-        String sql = "INSERT INTO f1(nev, kor, nemzetiseg, csapat, szrzettpontok, kategoria, helyezes) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO pilotak(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getNev());
         stmt.setInt(2, f1.getKor());
@@ -33,7 +33,7 @@ public class DriverDB {
 
     public List<Driver> readDriver() throws SQLException {
         List<Driver> pilotak = new ArrayList<>();
-        String sql = "SELECT * FROM f1";
+        String sql = "SELECT * FROM pilotak";
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()) {
@@ -78,5 +78,10 @@ public class DriverDB {
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
         return stmt.executeUpdate() > 0;
+    }
+    public void closeConnection() throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
     }
 }
