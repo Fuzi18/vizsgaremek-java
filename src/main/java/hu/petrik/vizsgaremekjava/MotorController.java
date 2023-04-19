@@ -136,7 +136,7 @@ public class MotorController {
     }
 
 
-    private Motor getSelectedShopNullMsg(String msg) {
+    private Motor getSelectedMotorNullMsg(String msg) {
         Motor selected = motorTable.getSelectionModel().getSelectedItem();
         if (selected == null) {
             alert(Alert.AlertType.WARNING, "Nincs kijelölt elem", msg);
