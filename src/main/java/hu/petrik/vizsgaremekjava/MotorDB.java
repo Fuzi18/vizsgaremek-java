@@ -21,9 +21,9 @@ public class MotorDB {
         String sql = "INSERT INTO motor(leiras, motorkomponens, quantity, price) VALUES (?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getLeiras());
-        stmt.setString(3, f1.getMotorkomponens());
-        stmt.setInt(5, f1.getQuantity());
-        stmt.setInt(7, f1.getPrice());
+        stmt.setString(2, f1.getMotorkomponens());
+        stmt.setInt(3, f1.getQuantity());
+        stmt.setInt(4, f1.getPrice());
         return stmt.executeUpdate() > 0;
     }
     public List<Motor> readMotor() throws SQLException {
