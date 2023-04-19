@@ -19,7 +19,7 @@ public class ShopDB {
         conn = DriverManager.getConnection(url, DB_USER, DB_PASS);
     }
     public boolean createShop(Shop f1) throws SQLException {
-        String sql = "INSERT INTO f1(type, team, size, color, price, quantity) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO shop(type, team, size, color, price, quantity) VALUES (?,?,?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getType());
         stmt.setString(3, f1.getTeam());
@@ -31,7 +31,7 @@ public class ShopDB {
     }
     public List<Shop> readShop() throws SQLException {
         List<Shop> shop = new ArrayList<>();
-        String sql = "SELECT * FROM f1";
+        String sql = "SELECT * FROM shop";
         Statement stmt = conn.createStatement();
         ResultSet result = stmt.executeQuery(sql);
         while (result.next()) {
@@ -68,7 +68,7 @@ public class ShopDB {
         return stmt.executeUpdate() > 0;
     }
     public boolean deleteShop(int id) throws SQLException {
-        String sql = "DELETE FROM f1 WHERE id = ?";
+        String sql = "DELETE FROM shop WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
         return stmt.executeUpdate() > 0;

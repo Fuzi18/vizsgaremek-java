@@ -74,7 +74,7 @@ public class DriverDB {
         return stmt.executeUpdate() > 0;
     }
     public boolean deleteDriver(int id) throws SQLException {
-        String sql = "DELETE FROM f1 WHERE id = ?";
+        String sql = "DELETE FROM pilotak WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, id);
         return stmt.executeUpdate() > 0;
