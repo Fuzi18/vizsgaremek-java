@@ -47,8 +47,8 @@ public class KaszniDB {
         String sql = "UPDATE kaszni " +
                 "SET leiras = ?, " +
                 "kasznikomponens = ?, " +
-                "quantity = ?" +
-                "price = ?" +
+                "quantity = ?, " +
+                "price = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getLeiras());

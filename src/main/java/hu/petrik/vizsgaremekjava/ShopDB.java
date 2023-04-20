@@ -22,11 +22,11 @@ public class ShopDB {
         String sql = "INSERT INTO shop(type, team, size, color, price, quantity) VALUES (?,?,?,?,?,?)";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getType());
-        stmt.setString(3, f1.getTeam());
-        stmt.setString(4, f1.getSize());
+        stmt.setString(2, f1.getTeam());
+        stmt.setString(3, f1.getSize());
         stmt.setString(4, f1.getColor());
         stmt.setInt(5, f1.getPrice());
-        stmt.setInt(7, f1.getQuantity());
+        stmt.setInt(6, f1.getQuantity());
         return stmt.executeUpdate() > 0;
     }
     public List<Shop> readShop() throws SQLException {
@@ -52,10 +52,10 @@ public class ShopDB {
         String sql = "UPDATE shop " +
                 "SET type = ?, " +
                 "team = ?, " +
-                "size = ?" +
-                "color = ?" +
-                "price = ?" +
-                "quantity = ?" +
+                "size = ?, " +
+                "color = ?, " +
+                "price = ?, " +
+                "quantity = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getType());

@@ -47,8 +47,8 @@ public class VezerloegysegDB {
         String sql = "UPDATE vezerloegyseg " +
                 "SET leiras = ?, " +
                 "vezerloegysegkomponens = ?, " +
-                "quantity = ?" +
-                "price = ?" +
+                "quantity = ?, " +
+                "price = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getLeiras());

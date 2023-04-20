@@ -47,8 +47,8 @@ public class MotorDB {
         String sql = "UPDATE motor " +
                 "SET leiras = ?, " +
                 "motorkomponens = ?, " +
-                "quantity = ?" +
-                "price = ?" +
+                "quantity = ?, " +
+                "price = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getLeiras());

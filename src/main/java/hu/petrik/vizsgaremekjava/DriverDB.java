@@ -56,11 +56,11 @@ public class DriverDB {
         String sql = "UPDATE pilotak " +
                 "SET nev = ?, " +
                 "kor = ?, " +
-                "nemzetiseg = ?" +
-                "csapat = ?" +
-                "szerzettpontok = ?" +
-                "kategoria = ?" +
-                "helyezes = ?" +
+                "nemzetiseg = ?, " +
+                "csapat = ?, " +
+                "szerzettpontok = ?, " +
+                "kategoria = ?," +
+                "helyezes = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, f1.getNev());
