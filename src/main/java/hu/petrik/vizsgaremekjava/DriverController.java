@@ -197,6 +197,10 @@ public class DriverController {
             alert(Alert.AlertType.WARNING, "Kategória megadása kötelező", "");
             return;
         }
+        if (kor == 0) {
+            alert(Alert.AlertType.WARNING, "A kor nem lehet 0", "");
+            return;
+        }
         if (submitButton.getText().equals("Update")) {
             updateDriver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         } else {
