@@ -70,7 +70,7 @@ public class DriverController {
         korInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50));
         helyezesInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50));
         szerzettpontokSlider.setMin(0);
-        szerzettpontokSlider.setMax(400);
+        szerzettpontokSlider.setMax(500);
         szerzettpontokSlider.setMin(0);
         szerzettpontokSlider.setMax(400);
         szerzettpontokSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
