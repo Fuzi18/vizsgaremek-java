@@ -49,7 +49,7 @@
                   <RowConstraints maxHeight="472.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Slider fx:id="szerzettpontokInput" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Slider fx:id="szerzettpontokSlider" showTickLabels="true" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="kategoriaInput" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <TextField fx:id="csapatInput" layoutX="10.0" layoutY="21.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="nemzetisegInput" layoutX="10.0" layoutY="21.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />

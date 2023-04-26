@@ -43,7 +43,7 @@ public class DriverController {
     @FXML
     private TextField csapatInput;
     @FXML
-    private Spinner<Integer> szerzettpontokInput;
+    private Slider szerzettpontokSlider;
     @FXML
     private TextField kategoriaInput;
     @FXML
@@ -68,8 +68,18 @@ public class DriverController {
         kategoriaCol.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
         helyezesCol.setCellValueFactory(new PropertyValueFactory<>("helyezes"));
         korInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50));
-        szerzettpontokInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 400));
         helyezesInput.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50));
+        szerzettpontokSlider.setMin(0);
+        szerzettpontokSlider.setMax(400);
+        szerzettpontokSlider.setMin(0);
+        szerzettpontokSlider.setMax(400);
+        szerzettpontokSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            szerzettpontokSlider.setValue(newValue.intValue());
+        });
+        szerzettpontokSlider.setValue(0);
+        szerzettpontokSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            szerzettpontokSlider.setValue(newValue.intValue());
+        });
         try {
             db = new DriverDB();
             readDrivers();
@@ -79,7 +89,6 @@ public class DriverController {
                 Platform.exit();
             });
         }
-
     }
 
 
@@ -111,7 +120,7 @@ public class DriverController {
             korInput.getValueFactory().setValue(selected.getKor());
             nemzetisegInput.setText(selected.getNemzetiseg());
             csapatInput.setText(selected.getCsapat());
-            szerzettpontokInput.getValueFactory().setValue(selected.getSzerzettpontok());
+            szerzettpontokSlider.setValue(selected.getSzerzettpontok());
             kategoriaInput.setText(selected.getKategoria());
             helyezesInput.getValueFactory().setValue(selected.getHelyezes());
             updateId = selected.getId();
@@ -178,29 +187,20 @@ public class DriverController {
         int kor = korInput.getValue();
         String nemzetiseg = nemzetisegInput.getText().trim();
         String csapat = csapatInput.getText().trim();
-        int szerzettpontok = szerzettpontokInput.getValue();
         String kategoria = kategoriaInput.getText().trim();
+        int szerzettpontok = (int) szerzettpontokSlider.getValue();
         int helyezes = helyezesInput.getValue();
-        if (nev.isEmpty()) {
-            alert(Alert.AlertType.WARNING, "Név megadása kötelező", "");
+
+        if (nev.isEmpty() || nemzetiseg.isEmpty() || csapat.isEmpty() || kategoria.isEmpty()) {
+            alert(Alert.AlertType.WARNING, "Minden mező kitöltése kötelező", "");
             return;
         }
-        if (nemzetiseg.isEmpty()) {
-            alert(Alert.AlertType.WARNING, "Nemzetiség megadása kötelező", "");
-            return;
-        }
-        if (csapat.isEmpty()) {
-            alert(Alert.AlertType.WARNING, "Csapat megadása kötelező", "");
-            return;
-        }
-        if (kategoria.isEmpty()) {
-            alert(Alert.AlertType.WARNING, "Kategória megadása kötelező", "");
-            return;
-        }
+
         if (kor == 0) {
             alert(Alert.AlertType.WARNING, "A kor nem lehet 0", "");
             return;
         }
+
         if (submitButton.getText().equals("Update")) {
             updateDriver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         } else {
@@ -209,9 +209,14 @@ public class DriverController {
     }
 
     private void updateDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
-        Driver f1 = new Driver(updateId, nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        Driver selected = driverTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            return;
+        }
+
+        Driver updatedDriver = new Driver(selected.getId(), nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         try {
-            if (db.updateDriver(f1)) {
+            if (db.updateDriver(updatedDriver)) {
                 alert(Alert.AlertType.WARNING, "Sikeres módosítás", "");
             } else {
                 alert(Alert.AlertType.WARNING, "Sikertelen módosítás", "");
@@ -222,10 +227,11 @@ public class DriverController {
             sqlAlert(e);
         }
     }
+
     private void createDriver(String nev, int kor, String nemzetiseg, String csapat, int szerzettpontok, String kategoria, int helyezes) {
-        Driver f1 = new Driver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
+        Driver newDriver = new Driver(nev, kor, nemzetiseg, csapat, szerzettpontok, kategoria, helyezes);
         try {
-            if (db.createDriver(f1)) {
+            if (db.createDriver(newDriver)) {
                 alert(Alert.AlertType.WARNING, "Sikeres felvétel", "");
                 resetForm();
             } else {
@@ -242,7 +248,7 @@ public class DriverController {
         korInput.getValueFactory().setValue(0);
         nemzetisegInput.setText("");
         csapatInput.setText("");
-        szerzettpontokInput.getValueFactory().setValue(0);
+        szerzettpontokSlider.setValue(0);
         kategoriaInput.setText("");
         helyezesInput.getValueFactory().setValue(0);
 
