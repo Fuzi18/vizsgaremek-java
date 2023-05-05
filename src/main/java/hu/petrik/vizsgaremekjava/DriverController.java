@@ -145,7 +145,7 @@ public class DriverController {
         if (selected == null) return;
 
         Optional<ButtonType> optionalButtonType = alert(Alert.AlertType.CONFIRMATION,
-                "Biztos, hogy törölni szeretné a választott pilotat?", "");
+                "Biztos, hogy törölni szeretné a választott pilotát?", "");
         if (optionalButtonType.isEmpty() || !(optionalButtonType.get().equals(ButtonType.OK)) && !(optionalButtonType.get().equals(ButtonType.YES)))  {
             return;
         }
@@ -176,7 +176,7 @@ public class DriverController {
         int selectedIndex = driverTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex == -1) {
             alert(Alert.AlertType.WARNING,
-                    "Előbb válasszon ki pilotat a táblázatból", "");
+                    "Előbb válasszon ki pilótát a táblázatból", "");
             return null;
         }
         return driverTable.getSelectionModel().getSelectedItem();

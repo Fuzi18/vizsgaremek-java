@@ -161,7 +161,7 @@ public class MotorController {
         int price = priceInput.getValue();
         if (updateId <= 0) {
             alert(Alert.AlertType.ERROR,
-                    "Hiba", "Előbb válasszon ki pilótát a táblázatból.");
+                    "Hiba", "Előbb válasszon ki terméket a táblázatból.");
             setStateToSubmit();
             return;
         }
