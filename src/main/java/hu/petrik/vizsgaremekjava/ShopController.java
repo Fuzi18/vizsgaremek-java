@@ -173,6 +173,12 @@ public class ShopController {
         String color = colorInput.getText().trim();
         int price = priceInput.getValue();
         int quantity = quantityInput.getValue();
+        if (updateId <= 0) {
+            alert(Alert.AlertType.ERROR,
+                    "Hiba", "Előbb válasszon ki pilótát a táblázatból.");
+            setStateToSubmit();
+            return;
+        }
         if (type.isEmpty()) {
             alert(Alert.AlertType.WARNING, "Típus megadása kötelező", "");
             return;

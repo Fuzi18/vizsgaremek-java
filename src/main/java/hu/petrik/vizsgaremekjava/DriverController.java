@@ -190,6 +190,12 @@ public class DriverController {
         String kategoria = kategoriaInput.getText().trim();
         int szerzettpontok = (int) szerzettpontokSlider.getValue();
         int helyezes = helyezesInput.getValue();
+        if (updateId <= 0) {
+            alert(Alert.AlertType.ERROR,
+                    "Hiba", "Előbb válasszon ki pilótát a táblázatból.");
+            setStateToSubmit();
+            return;
+        }
 
         if (nev.isEmpty() || nemzetiseg.isEmpty() || csapat.isEmpty() || kategoria.isEmpty()) {
             alert(Alert.AlertType.WARNING, "Minden mező kitöltése kötelező", "");

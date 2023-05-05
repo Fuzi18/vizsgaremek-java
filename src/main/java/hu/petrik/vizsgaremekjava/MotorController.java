@@ -159,6 +159,12 @@ public class MotorController {
         String motorkomponens = motorkomponensInput.getText().trim();
         int quantity = quantityInput.getValue();
         int price = priceInput.getValue();
+        if (updateId <= 0) {
+            alert(Alert.AlertType.ERROR,
+                    "Hiba", "Előbb válasszon ki pilótát a táblázatból.");
+            setStateToSubmit();
+            return;
+        }
         if (leiras.isEmpty()) {
             alert(Alert.AlertType.WARNING, "Leírás megadása kötelező", "");
             return;
